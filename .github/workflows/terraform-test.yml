@@ -1,26 +1,29 @@
 name: Terraform Test
 on:
-  push:
-    branches: ['main']
+    push:
+        branches: ['main']
 jobs:
-  terraform-test:
-    runs-on: ubuntu-latest
+    terraform-test:
+        runs-on: ubuntu-latest
+        env:
+            TF_VAR_subscription_id: ${{secrets.SUBSCRIPTION_ID}}
+            TF_VAR_sql_admin_login_username: ${{secrets.SQL_ADMIN_LOGIN_USERNAME}}
+            TF_VAR_sql_admin_login_password: ${{secrets.SQL_ADMIN_LOGIN_PASSWORD}}
+        steps:
+            - name: 'Checkout repository'
+              uses: actions/checkout@v4
 
-    steps:
-      - name: 'Checkout repository'
-        uses: actions/checkout@v4
+            - name: 'Set up Terraform'
+              uses: hashicorp/setup-terraform@v3
 
-      - name: 'Set up Terraform'
-        uses: hashicorp/setup-terraform@v3
+            - name: 'Terraform Init'
+              run: terraform init
 
-      - name: 'Terraform Init'
-        run: terraform init
+            - name: 'Terraform Format Check'
+              run: terraform fmt -check -recursive
 
-      - name: 'Terraform Format Check'
-        run: terraform fmt -check -recursive
+            - name: 'Terraform Validate'
+              run: terraform validate
 
-      - name: 'Terraform Validate'
-        run: terraform validate
-
-      - name: 'Terraform Plan'
-        run: terraform plan
+            - name: 'Terraform Plan'
+              run: terraform plan

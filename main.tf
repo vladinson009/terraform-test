@@ -10,7 +10,7 @@ terraform {
 # Configure the Azure provider
 provider "azurerm" {
   # Configuration options
-  subscription_id = process.env.SUBSCRIPTION_ID
+  subscription_id = var.subscription_id
   features {}
 }
 # Generate a random integer to create a globally unique name

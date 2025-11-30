@@ -57,3 +57,6 @@ variable "firewall_rule_name" {
   type        = string
   description = "Firewall rule name in Azure"
 }
+variable "subscription_id" {
+  type = string
+}
