@@ -9,10 +9,14 @@ terraform {
 }
 # Configure the Azure provider
 provider "azurerm" {
-  # Configuration options
+  # features = {}
+
+  tenant_id       = var.tenant_id
   subscription_id = var.subscription_id
-  features {}
+  client_id       = var.client_id
+  client_secret   = var.client_secret
 }
+
 # Generate a random integer to create a globally unique name
 resource "random_integer" "ri" {
   min = var.random_integer_min

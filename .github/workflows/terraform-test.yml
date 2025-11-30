@@ -9,6 +9,11 @@ jobs:
             TF_VAR_subscription_id: ${{secrets.SUBSCRIPTION_ID}}
             TF_VAR_sql_admin_login_username: ${{secrets.SQL_ADMIN_LOGIN_USERNAME}}
             TF_VAR_sql_admin_login_password: ${{secrets.SQL_ADMIN_LOGIN_PASSWORD}}
+
+            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID}}
+            ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+            ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+            ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
         steps:
             - name: 'Checkout repository'
               uses: actions/checkout@v4
