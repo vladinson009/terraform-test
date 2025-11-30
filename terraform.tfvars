@@ -1,0 +1,14 @@
+random_integer_min         = 1
+random_integer_max         = 20
+resource_group_name        = "my-resources"
+resource_group_location    = "Norway East"
+app_service_plan_name      = "my-plan"
+app_service_plan_os        = "Linux"
+app_service_name           = "TaskBoard-app"
+app_service_dotnet_version = "6.0"
+sql_server_name            = "sql-server-taskboard"
+sql_admin_login_username   = process.env.sql_admin_login_username
+sql_admin_login_password   = process.env.sql_admin_login_password
+sql_database_name          = "sql-db-taskboard"
+github_repo_url            = "https://github.com/vladinson009/terraform-test-2"
+firewall_rule_name         = "firewall-taskboard"
