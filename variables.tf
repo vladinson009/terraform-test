@@ -57,10 +57,5 @@ variable "firewall_rule_name" {
   type        = string
   description = "Firewall rule name in Azure"
 }
-variable "subscription_id" {
-  type = string
-}
-variable "client_id" { type = string }
-variable "client_secret" { type = string }
-variable "tenant_id" { type = string }
+
 
