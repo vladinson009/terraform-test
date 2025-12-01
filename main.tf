@@ -104,3 +104,21 @@ resource "azurerm_mssql_firewall_rule" "example" {
   end_ip_address   = "0.0.0.0"
 }
 # Test 1
+resource "azurerm_resource_group" "backend_rg" {
+  name     = "StorageRG"
+  location = "Norway East" # or your preferred location
+}
+
+resource "azurerm_storage_account" "tfstate" {
+  name                     = "taskboardstoragevladimir"
+  resource_group_name      = azurerm_resource_group.backend_rg.name
+  location                 = azurerm_resource_group.backend_rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "tfstate_container" {
+  name                  = "taskboardcontainer"
+  storage_account_id    = azurerm_storage_account.tfstate.id
+  container_access_type = "private"
+}
