@@ -97,3 +97,4 @@ resource "azurerm_mssql_firewall_rule" "example" {
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
 }
+# Test 1
