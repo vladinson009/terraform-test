@@ -103,7 +103,7 @@ resource "azurerm_mssql_firewall_rule" "example" {
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
 }
-# Test 1
+# /////////////////////////////////////////////////// STATE ////////
 resource "azurerm_resource_group" "backend_rg" {
   name     = "StorageRG"
   location = "Norway East" # or your preferred location
@@ -122,3 +122,4 @@ resource "azurerm_storage_container" "tfstate_container" {
   storage_account_id    = azurerm_storage_account.tfstate.id
   container_access_type = "private"
 }
+# Test 1
