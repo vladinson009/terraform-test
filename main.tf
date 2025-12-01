@@ -19,18 +19,18 @@ provider "azurerm" {
 }
 
 # Generate a random integer to create a globally unique name
-resource "random_integer" "ri" {
-  min = var.random_integer_min
-  max = var.random_integer_max
-}
+# resource "random_integer" "ri" {
+#   min = var.random_integer_min
+#   max = var.random_integer_max
+# }
 # Create the resource group 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_group_name}-${random_integer.ri.result}"
+  name     = var.resource_group_name
   location = var.resource_group_location
 }
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "rp" {
-  name                = "${var.app_service_plan_name}-${random_integer.ri.result}"
+  name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = var.app_service_plan_os
@@ -38,7 +38,7 @@ resource "azurerm_service_plan" "rp" {
 }
 # Create the web app, pass in the App Service Plan ID 
 resource "azurerm_linux_web_app" "webapp" {
-  name                = "${var.app_service_name}-${random_integer.ri.result}"
+  name                = var.app_service_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.rp.id
@@ -58,7 +58,7 @@ resource "azurerm_linux_web_app" "webapp" {
 }
 # MSSQL SERVER
 resource "azurerm_mssql_server" "sqlserver" {
-  name                         = "${var.sql_server_name}-${random_integer.ri.result}"
+  name                         = var.sql_server_name
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = azurerm_resource_group.rg.location
   version                      = "12.0"
@@ -71,7 +71,7 @@ resource "azurerm_mssql_server" "sqlserver" {
 }
 # MSSQL DATABASE
 resource "azurerm_mssql_database" "db" {
-  name           = "${var.sql_database_name}-${random_integer.ri.result}"
+  name           = "${var.sql_database_name}-"
   server_id      = azurerm_mssql_server.sqlserver.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
@@ -98,7 +98,7 @@ resource "azurerm_app_service_source_control" "github" {
 }
 # FIREWALL RULE
 resource "azurerm_mssql_firewall_rule" "example" {
-  name             = "${var.firewall_rule_name}-${random_integer.ri.result}"
+  name             = var.firewall_rule_name
   server_id        = azurerm_mssql_server.sqlserver.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
